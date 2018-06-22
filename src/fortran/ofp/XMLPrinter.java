@@ -140,6 +140,28 @@ public class XMLPrinter extends XMLPrinterBase {
 		contextClose();
 	}
 
+    public void component_attr_spec(Token attrKeyword, int specType) {
+    		contextCloseAllInner("attribute");
+    		super.component_attr_spec(attrKeyword, specType);
+    		contextClose();
+    		contextOpen("attribute");
+    	}
+
+	public void component_attr_spec_list__begin() {
+		contextOpen("attributes");
+		if (verbosity >= 100)
+			super.component_attr_spec_list__begin();
+		contextOpen("attribute");
+	}
+
+	public void component_attr_spec_list(int count) {
+		contextClose("attribute");
+		contextCloseAllInner("attributes");
+		if (verbosity >= 100)
+			super.component_attr_spec_list(count);
+		setAttribute("count", count);
+		contextClose();
+	}
 
 	public void execution_part_construct() {
 		if (verbosity >= 100)
