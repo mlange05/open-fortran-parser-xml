@@ -389,6 +389,7 @@ public class XMLPrinter extends XMLPrinterBase {
 					new IllegalArgumentException(declaration.getTagName());
 				setAttribute("name", declaration.getAttribute("keyword1"));
 				setAttribute("type", "intrinsic");
+				moveHere(declaration);
 				break;
 			case "derived-type-spec":
 				n = getAttribute("name");
@@ -396,17 +397,19 @@ public class XMLPrinter extends XMLPrinterBase {
 					new IllegalArgumentException(declaration.getTagName());
 				setAttribute("name", declaration.getAttribute("typeName"));
 				setAttribute("type", "derived");
+				moveHere(declaration);
 				break;
 			case "length":
 				setAttribute("hasLength", true);
+				moveHere(declaration);
 				break;
 			case "kind":
 				setAttribute("hasKind", true);
+				moveHere(declaration);
 				break;
 			default:
 				break;
 			}
-			moveHere(declaration);
 		}
 		super.declaration_type_spec(udtKeyword, type);
 		contextClose();
