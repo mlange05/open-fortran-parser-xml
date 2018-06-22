@@ -114,6 +114,33 @@ public class XMLPrinter extends XMLPrinterBase {
 		contextOpen("declaration");
 	}
 
+    public void component_decl(Token id, boolean hasComponentArraySpec, boolean hasCoarraySpec,
+    			       boolean hasCharLength, boolean hasComponentInitialization) {
+    		contextCloseAllInner("component");
+    		super.component_decl(id, hasComponentArraySpec, hasCoarraySpec, hasCharLength, hasComponentInitialization);
+    		setAttribute("name", id);
+		setAttribute("hasInitialComponentValue", hasComponentInitialization);
+    		contextClose();
+    		contextOpen("component");
+    	}
+
+	public void component_decl_list__begin() {
+		contextOpen("components");
+		if (verbosity >= 100)
+			super.component_decl_list__begin();
+		contextOpen("component");
+	}
+
+	public void component_decl_list(int count) {
+		contextClose("component");
+		contextCloseAllInner("components");
+		if (verbosity >= 100)
+			super.component_decl_list(count);
+		setAttribute("count", count);
+		contextClose();
+	}
+
+
 	public void execution_part_construct() {
 		if (verbosity >= 100)
 			super.execution_part_construct();
